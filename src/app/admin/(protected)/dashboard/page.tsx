@@ -64,7 +64,7 @@ export default function UnifiedDashboardPage() {
       <div className="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-6 lg:p-8 text-white relative overflow-hidden shadow-premium-lg">
         <div className="absolute right-0 top-0 w-48 h-48 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/4" />
         <div className="relative">
-          <h2 className="text-2xl lg:text-3xl font-bold">Media Content API Hub</h2>
+          <h2 className="text-2xl lg:text-3xl font-bold">Battery Animation App2</h2>
           <p className="text-violet-100 mt-2 text-sm lg:text-base max-w-xl">
             Control center for your Live Video Wallpapers and Animations. Monitor API status, manage items, and optimize storage.
           </p>

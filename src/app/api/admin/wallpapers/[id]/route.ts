@@ -3,11 +3,9 @@ import { connectDB } from "@/lib/mongodb";
 import { Sound } from "@/lib/models";
 import type { SoundLean } from "@/lib/models/Sound";
 import { requireAdmin, apiError, apiSuccess } from "@/lib/api-utils";
-import { saveUploadedVideo } from "@/lib/upload";
+import { saveUploadedVideo, deleteMediaFiles } from "@/lib/upload";
 import { recompactAfterDelete } from "@/lib/wallpaper-order";
 import { formatSound } from "@/lib/sound-utils";
-import { unlink } from "fs/promises";
-import path from "path";
 
 export async function GET(
   _request: NextRequest,
@@ -62,11 +60,7 @@ export async function PUT(
       updateData.thumbnailUrl = uploaded.thumbnailUrl;
 
       try {
-        await unlink(path.join(process.cwd(), "public", "uploads", existing.fileName));
-        if (existing.thumbnailUrl) {
-          const thumbName = path.basename(existing.thumbnailUrl);
-          await unlink(path.join(process.cwd(), "public", "uploads", "thumbnails", thumbName));
-        }
+        await deleteMediaFiles(existing.fileName, existing.thumbnailUrl, "wallpapers");
       } catch {
         // old files may not exist
       }

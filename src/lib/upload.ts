@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import ffprobeInstaller from "@ffprobe-installer/ffprobe";
 import ffmpegInstaller from "@ffmpeg-installer/ffmpeg";
 import { uploadFileExists } from "@/lib/serve-media";
+import { toAbsoluteMediaUrl } from "./media-url";
 
 const execFileAsync = promisify(execFile);
 
@@ -187,7 +188,7 @@ export async function saveUploadedVideo(
   try {
     const thumbnailUrl = await generateThumbnail(filePath, thumbnailFileName, subdir);
     return {
-      url: `/uploads/${subdir}/${fileName}`,
+      url: toAbsoluteMediaUrl(`/uploads/${subdir}/${fileName}`),
       fileName,
       fileSize: buffer.length,
       format: getVideoFormat(fileName),
@@ -195,7 +196,7 @@ export async function saveUploadedVideo(
       height: metadata.height,
       duration: metadata.duration,
       mimeType: getMimeType(fileName),
-      thumbnailUrl,
+      thumbnailUrl: toAbsoluteMediaUrl(thumbnailUrl),
     };
   } catch (err) {
     try {
@@ -257,7 +258,7 @@ export async function saveVideoFromBuffer(
   try {
     const thumbnailUrl = await generateThumbnail(filePath, thumbnailFileName, subdir);
     return {
-      url: `/uploads/${subdir}/${fileName}`,
+      url: toAbsoluteMediaUrl(`/uploads/${subdir}/${fileName}`),
       fileName,
       fileSize: buffer.length,
       format: getVideoFormat(safeName),
@@ -265,7 +266,7 @@ export async function saveVideoFromBuffer(
       height: metadata.height,
       duration: metadata.duration,
       mimeType: getMimeType(safeName),
-      thumbnailUrl,
+      thumbnailUrl: toAbsoluteMediaUrl(thumbnailUrl),
     };
   } catch (err) {
     try {

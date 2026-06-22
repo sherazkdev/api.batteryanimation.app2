@@ -33,7 +33,7 @@ export interface AppTheme {
 }
 
 export const APP = {
-  name: "Media Content API",
+  name: "Battery Animation App2",
   tagline: "Premium live wallpaper and animation content API",
   singular: "Media",
   plural: "Media Files",

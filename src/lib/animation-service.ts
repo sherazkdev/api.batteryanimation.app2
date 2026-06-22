@@ -84,12 +84,8 @@ export async function createAnimationRecord(
   const media = mediaDataFromUpload(uploaded, extra);
   const created = await Animation.create({
     ...media,
-    url:
-      toPublicMediaPath(media.url, { fileName: media.fileName, kind: "video" }) ??
-      media.url,
-    thumbnailUrl:
-      toPublicMediaPath(media.thumbnailUrl, { fileName: media.fileName, kind: "thumbnail" }) ??
-      media.thumbnailUrl,
+    url: media.url,
+    thumbnailUrl: media.thumbnailUrl,
     order,
     categoryId: extra.categoryId || null,
   });
