@@ -48,7 +48,8 @@ export function getRequestOrigin(headers: Headers): string | undefined {
 export function getPublicBaseUrl(requestOrigin?: string): string {
   const explicit =
     process.env.PUBLIC_BASE_URL?.trim() ||
-    process.env.PUBLIC_API_BASE_URL?.trim();
+    process.env.PUBLIC_API_BASE_URL?.trim() ||
+    process.env.NEXT_PUBLIC_API_BASE_URL?.trim();
   if (explicit) return trimTrailingSlash(explicit);
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL?.trim();

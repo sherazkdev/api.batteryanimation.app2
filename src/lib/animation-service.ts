@@ -33,8 +33,8 @@ export async function getNextOrder(): Promise<number> {
 }
 
 export async function listAnimations(params: {
-  page: number;
-  limit: number;
+  // page: number;
+  // limit: number;
   search?: string;
   status?: string;
   format?: string;
@@ -43,13 +43,13 @@ export async function listAnimations(params: {
 }, serializeOptions?: SerializeAnimationOptions) {
   await connectMongoDB();
   const filter = buildListFilter(params);
-  const skip = (params.page - 1) * params.limit;
+  // const skip = (params.page - 1) * params.limit;
 
   const [animations, total] = await Promise.all([
     Animation.find(filter)
       .sort({ order: 1 })
-      .skip(skip)
-      .limit(params.limit)
+      // .skip(skip)
+      // .limit(params.limit)
       .populate(categoryPopulate)
       .lean(),
     Animation.countDocuments(filter),

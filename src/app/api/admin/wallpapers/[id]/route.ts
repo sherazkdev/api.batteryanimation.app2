@@ -6,6 +6,8 @@ import { requireAdmin, apiError, apiSuccess } from "@/lib/api-utils";
 import { saveUploadedVideo, deleteMediaFiles } from "@/lib/upload";
 import { recompactAfterDelete } from "@/lib/wallpaper-order";
 import { formatSound } from "@/lib/sound-utils";
+import { unlink } from "fs/promises";
+import path from "path";
 
 export async function GET(
   _request: NextRequest,

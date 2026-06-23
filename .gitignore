@@ -8,6 +8,9 @@
 !.yarn/releases
 !.yarn/versions
 
+
+/battery-animation2-api-deployment-read.zip
+
 # testing
 /coverage
 

@@ -53,11 +53,11 @@ export async function handleAnimationList(
   forPublicApi = false
 ) {
   const { searchParams } = new URL(request.url);
-  const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
-  const perPage = Math.min(
-    100,
-    Math.max(1, parseInt(searchParams.get("per_page") || searchParams.get("limit") || "10"))
-  );
+  // const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
+  // const perPage = Math.min(
+  //   100,
+  //   Math.max(1, parseInt(searchParams.get("per_page") || searchParams.get("limit") || "10"))
+  // );
   const search = searchParams.get("search") || "";
   const status = searchParams.get("status") || "";
   const format = searchParams.get("format") || "";
@@ -66,8 +66,6 @@ export async function handleAnimationList(
   const serializeOptions = serializeOptionsForRequest(request, forPublicApi);
   const { animations, total } = await listAnimations(
     {
-      page,
-      limit: perPage,
       search,
       status: publishedOnly ? "Published" : status,
       format,
@@ -79,11 +77,7 @@ export async function handleAnimationList(
 
   return apiSuccess({
     animations,
-    pagination: { page, perPage, total, totalPages: Math.ceil(total / perPage) },
-    total,
-    page,
-    limit: perPage,
-    totalPages: Math.ceil(total / perPage),
+    total
   });
 }
 

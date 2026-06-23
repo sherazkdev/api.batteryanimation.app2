@@ -25,8 +25,8 @@ export async function GET(request: NextRequest) {
   await connectDB();
 
   const { searchParams } = new URL(request.url);
-  const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
-  const perPage = Math.min(100, Math.max(1, parseInt(searchParams.get("per_page") || searchParams.get("limit") || "10")));
+  // const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
+  // const perPage = Math.min(100, Math.max(1, parseInt(searchParams.get("per_page") || searchParams.get("limit") || "10")));
   const search = searchParams.get("search") || "";
   const status = searchParams.get("status") || "";
   const filter = buildFilter(search, status);
@@ -35,15 +35,12 @@ export async function GET(request: NextRequest) {
     Sound.find(filter)
       .select(SOUND_LIST_PROJECTION)
       .sort(wallpaperOrderBy)
-      .skip((page - 1) * perPage)
-      .limit(perPage)
       .lean(),
     Sound.countDocuments(filter),
   ]);
 
   return apiSuccess({
     wallpapers: formatSoundList(wallpapers),
-    pagination: { page, perPage, total, totalPages: Math.ceil(total / perPage) },
   });
 }
 
